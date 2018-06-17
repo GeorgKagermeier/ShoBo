@@ -1,61 +1,53 @@
-{% load staticfiles %}
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-<link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet" type="text/css">
-<link rel="stylesheet" type="text/css" href="{% static 'story/style.css' %}"/>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+{% extends 'story/base.html' %}
+{% block storys_active %}active{% endblock %}
 
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type=" button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="{% url 'story:index' %}">ShoBo</a>
+{% block body %}
+<div class="storys-container container-fluid">
+
+    <!-- Storys -->
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>{{ user.username }}'s Storys</h3>
         </div>
-        <div class="collapse navbar-collapse" id="topNavBar">
+        {% if story %}
+            {% for story in storys %}
+                <div class="col-sm-4 col-lg-2">
+                    <div class="caption">
+                            <h2>{{ story.story_title }}</h2>
+                            <h4>{{ story.artist }}</h4>
 
-            <ul class="nav navbar-nav">
-                <li class="">
-                    <a href="{% url 'story:index'%}">
-                        <span class="glypicon glypicon-book" aria-hidden="true"></span>&nbsp; Storys
-                    </a>
-                </li>
-            </ul>
+                            <!-- View Details -->
+                            <a href={'story:detail' story.id} class="btn btn-primary btn-sm" role="button">View Details</a>
 
-            <form class="navbar-form navbar-left" role="search" method="get" action="#">
-                <div class="form-group">
-                    <input type="text" class="form-control" name="q" value="">
+                            <!-- Delete Story -->
+                            <form action="{% url 'story:delete_story' story.id %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="story_id" value="{{ story.id }}" />
+                                <button type="submit" class="btn btn-default btn-sm">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </form>
+
+                            <!-- Favorite Story -->
+                            <a href={'story:favorite_story' story.id} class="btn btn-default btn-sm btn-favorite" role="button">
+                                <span class="glyphicon glyphicon-star {% if album.is_favorite %}active{% endif %}"></span>
+                            </a>
+
+                    </div>
+
                 </div>
-                <button type="submit" class="btn btn-default">Search</button>
-            </form>
-
-            <ul class="nav navbar-nav navbar-right">
-                <li class="">
-                    <a href="#">
-                        <span class="glypicon glypicon-plus" aria-hidden="true"></span>&nbsp; Add Storys
-                    </a>
-                </li>
-                  <li class="">
-                    <a href="#">
-                        <span class="glypicon glypicon-off" aria-hidden="true"></span>&nbsp; Logout
-                    </a>
-                </li>
-            </ul>
-        </div>
-
+                {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
+            {% endfor %}
+        {% else %}
+            <div class="col-sm-12">
+                <br>
+                <a href={'story:create_story'}>
+                    <button type="button" class="btn btn-success">
+                        <span class="glyphicon glyphicon-plus"></span>&nbsp; Add a Story
+                    </button>
+                </a>
+            </div>
+        {% endif %}
     </div>
-</nav>
-
-{% if all_storys %}
-    <h3>Here are all my storys:</h3>
-    <ul>
-        {% for story in all_storys %}
-             <li><a href={ url  'story:detail' story.id %}> {{ story.story_title}}</a></li>
-        {% endfor %}
-    </ul>
- {% else %}
-    <h3> You dont have any storys. Please write some! </h3>
- {% endif %}
+</div>
+{% endblock %}

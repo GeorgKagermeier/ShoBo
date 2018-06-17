@@ -1,12 +1,24 @@
-<img src ="#">
+{% extends 'story/base.html' %}
+{% block title %}{{ album }}{% endblock %}
+{% block albums_active %}active{% endblock %}
 
-<h1>{{ story.story_title }}</h1>
-<h3>{{ artist }}</h3>
+{% block body %}
+<div class="container-fluid songs-container">
 
-{% if error_message %}
-    <p><strong> {{error_message }}</strong></p>
-{% endif %}
+    <div class="row">
 
-<form>
+        <!-- Left Story Info -->
+        <div class="col-sm-4 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href={'story:detail' story.id }></a>
+                    <h1>{{ story.story_title }} <small>{{ story.genre }}</small></h1>
+                    <h2>{{ story.artist }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-</form>
+
+{% endblock %}

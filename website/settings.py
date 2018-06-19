@@ -20,7 +20,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'story.apps.StoryConfig',
+    'story',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

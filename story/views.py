@@ -3,16 +3,22 @@ from django.contrib.auth import logout
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
-
-import story
-from .forms import  StoryForm, UserForm
+from .forms import StoryForm, UserForm, NoteForm
 from .models import Story
 
 
+def index(request):
+    #if not request.user.is_authenticated():
+    #    return render(request, 'story/login.html')
+    #else:
+        storys = Story.objects.order_by('-date_added')
+        context = {'storys' : storys}
+        return render(request, 'story/index.html', context)
+
 def create_story(request):
-   # if not request.user.is_authenticated():
-   #     return render(request, 'story/login.html')
-   # else:
+    #if not request.user.is_authenticated():
+    #    return render(request, 'story/login.html')
+    #else:
         form = StoryForm(request.POST or None, request.FILES or None)
         if form.is_valid():
             story = form.save(commit=False)
@@ -33,9 +39,9 @@ def delete_story(request, story_id):
     return render(request, 'story/index.html', {'story': story})
 
 def detail(request, story_id):
-    # if not request.user.is_authenticated():
+    #if not request.user.is_authenticated():
     #    return render(request, 'story/login.html')
-    # else:
+    #else:
         user = request.user
         story = get_object_or_404(Story, pk=story_id)
         return render(request, 'story/detail.html', {'story': story, 'user': user})
@@ -47,23 +53,6 @@ def logout_user(request):
         "form": form,
     }
     return render(request, 'story/login.html', context)
-
-def index(request):
-    #if not request.user.is_authenticated():
-    #    return render(request, 'story/login.html')
-    #else:
-        storys = Story.objects.filter(user=request.user)
-        query = request.GET.get("q")
-        if query:
-            storys = storys.filter(
-                Q(story_title__icontains=query) |
-                Q(artist__icontains=query)
-            ).distinct()
-            return render(request, 'story/index.html', {
-                'storys': storys,
-            })
-        else:
-            return render(request, 'story/index.html', {'story': story})
 
 def register(request):
     form = UserForm(request.POST or None)
@@ -82,4 +71,4 @@ def register(request):
     context = {
         "form": form,
     }
-    return render(request, 'story/register.html', context)
+    return render(request, 'story/registration_form.html', context)

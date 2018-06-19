@@ -11,7 +11,7 @@
         <div class="col-sm-4 col-md-3">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <a href={'story:detail' story.id }></a>
+                    <a href="{% url 'story:detail' story.id %}"></a>
                     <h1>{{ story.story_title }} <small>{{ story.genre }}</small></h1>
                     <h2>{{ story.artist }}</h2>
                 </div>

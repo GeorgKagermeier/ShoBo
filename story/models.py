@@ -1,5 +1,6 @@
 from django.contrib.auth.models import Permission, User
 from django.db import models
+import django.utils.timezone
 
 class Story(models.Model):
     user = models.ForeignKey(User, default=1, on_delete=models.CASCADE,)
@@ -10,8 +11,11 @@ class Story(models.Model):
     is_favorite = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.album_title + ' - ' + self.artist
+        return self.title + ' - ' + self.artist
 
 
+class Note(models.Model):
+    note = models.TextField()
+    date_added = models.DateTimeField(default=django.utils.timezone.now)
 
 

@@ -1,23 +1,24 @@
 {% extends 'story/base.html' %}
 {% block storys_active %}active{% endblock %}
 
+
 {% block body %}
 <div class="storys-container container-fluid">
 
     <!-- Storys -->
     <div class="row">
         <div class="col-sm-12">
-            <h3>{{ user.username }}'s Storys</h3>
+            <h3>Stories von{{ user.username }} </h3>
         </div>
         {% if story %}
-            {% for story in storys %}
+            {% for s in storys %}
                 <div class="col-sm-4 col-lg-2">
                     <div class="caption">
-                            <h2>{{ story.story_title }}</h2>
-                            <h4>{{ story.artist }}</h4>
+                            <h2>{{ s.title }}</h2>
+                            <h4>{{ s.artist }}</h4>
 
                             <!-- View Details -->
-                            <a href={'story:detail' story.id} class="btn btn-primary btn-sm" role="button">View Details</a>
+                            <a href="{% url 'story:detail' story.id %}" class="btn btn-primary btn-sm" role="button">View Details</a>
 
                             <!-- Delete Story -->
                             <form action="{% url 'story:delete_story' story.id %}" method="post" style="display: inline;">
@@ -27,12 +28,6 @@
                                     <span class="glyphicon glyphicon-trash"></span>
                                 </button>
                             </form>
-
-                            <!-- Favorite Story -->
-                            <a href={'story:favorite_story' story.id} class="btn btn-default btn-sm btn-favorite" role="button">
-                                <span class="glyphicon glyphicon-star {% if album.is_favorite %}active{% endif %}"></span>
-                            </a>
-
                     </div>
 
                 </div>
@@ -41,7 +36,7 @@
         {% else %}
             <div class="col-sm-12">
                 <br>
-                <a href={'story:create_story'}>
+                <a href="{% url 'story:create_story' %}">
                     <button type="button" class="btn btn-success">
                         <span class="glyphicon glyphicon-plus"></span>&nbsp; Add a Story
                     </button>

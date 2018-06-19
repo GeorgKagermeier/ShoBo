@@ -3,7 +3,7 @@
 {% block albums_active %}active{% endblock %}
 
 {% block body %}
-<div class="container-fluid songs-container">
+<div class="container-fluid stories-container">
 
     <div class="row">
 
@@ -12,13 +12,31 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <a href="{% url 'story:detail' story.id %}"></a>
-                    <h1>{{ story.story_title }} <small>{{ story.genre }}</small></h1>
-                    <h2>{{ story.artist }}</h2>
+                        <h1>{{ story.title }}</h1>
+                        <h2>{{ story.artist }}</h2>
+                        <h3>{{ story.genre }}</h3>
+                        <h4>{{ story.file }}</h4>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Right Story Info -->
+        <div class="col-sm-8 col-md-9">
+
+            <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                <li role="presentation" class="active"><a href="{% url 'story:detail' story.id %}">View All</a></li>
+            </ul>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>All Stories</h3>
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
-</div>
-
+ </div>
 
 {% endblock %}

@@ -18,7 +18,7 @@ def index(request):
 
 def create_story(request):
     if not request.user.is_authenticated:
-        return render(request, 'story/login.html')
+        return render(request, 'registration/login.html')
     else:
         form = StoryForm(request.POST or None, request.FILES or None)
         if form.is_valid():
@@ -68,10 +68,10 @@ def login_user(request):
                 stories = Story.objects.filter(user=request.user)
                 return render(request, 'story/index.html', {'stories': stories})
             else:
-                return render(request, 'story/login.html', {'error_message': 'Your account has been disabled'})
+                return render(request, 'registration/login.html', {'error_message': 'Your account has been disabled'})
         else:
-            return render(request, 'story/login.html', {'error_message': 'Invalid login'})
-    return render(request, 'story/login.html')
+            return render(request, 'registration/login.html', {'error_message': 'Invalid login'})
+    return render(request, 'registration/login.html')
 
 
 def register(request):

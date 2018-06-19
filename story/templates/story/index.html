@@ -8,21 +8,20 @@
     <!-- Storys -->
     <div class="row">
         <div class="col-sm-12">
-            <h3>Stories von{{ user.username }} </h3>
+            <h3>Geschichten von {{ user.username }} </h3>
         </div>
         {% if story %}
-            {% for s in storys %}
+            {% for story in stories %}
                 <div class="col-sm-4 col-lg-2">
                     <div class="caption">
-                            <h2>{{ s.title }}</h2>
-                            <h4>{{ s.artist }}</h4>
+                            <h2>{{ story.title }}</h2>
+                            <h4>{{ story.artist }}</h4>
 
                             <!-- View Details -->
                             <a href="{% url 'story:detail' story.id %}" class="btn btn-primary btn-sm" role="button">View Details</a>
 
                             <!-- Delete Story -->
-                            <form action="{% url 'story:delete_story' story.id %}" method="post" style="display: inline;">
-                                {% csrf_token %}
+                            <form action="{% url 'story:delete_story' story.id %}" method="post" style="display: inline;">{% csrf_token %}
                                 <input type="hidden" name="story_id" value="{{ story.id }}" />
                                 <button type="submit" class="btn btn-default btn-sm">
                                     <span class="glyphicon glyphicon-trash"></span>

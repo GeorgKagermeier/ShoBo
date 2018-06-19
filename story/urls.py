@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from django.contrib.auth.views import LoginView
 
 app_name = 'story'
 
@@ -9,9 +10,9 @@ urlpatterns = [
 
     path('register', views.register, name='register'),
 
-    path('login_user', views.login_user, name='login_user'),
+    path('login', LoginView.as_view(), name='login_user'),
 
-    path('logout_user', views.logout_user, name='logout_user'),
+    path('logout', views.logout, name='logout_user'),
 
     path('story/<int:story_id>', views.detail, name='detail'),
     # /story/story/add/

@@ -54,6 +54,23 @@ def logout_user(request):
     }
     return render(request, 'story/login.html', context)
 
+
+def login_user(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                stories = Story.objects.filter(user=request.user)
+                return render(request, 'story/index.html', {'storys': stories})
+            else:
+                return render(request, 'story/login.html', {'error_message': 'Your account has been disabled'})
+        else:
+            return render(request, 'story/login.html', {'error_message': 'Invalid login'})
+    return render(request, 'story/login.html')
+
 def register(request):
     form = UserForm(request.POST or None)
     if form.is_valid():

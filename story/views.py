@@ -1,11 +1,8 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
-from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
-from django.db.models import Q
 from .forms import StoryForm, UserForm, NoteForm
 from .models import Story
-from django.http import  HttpResponse
 
 
 def index(request):

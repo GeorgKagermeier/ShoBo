@@ -42,8 +42,13 @@
             </form>
             <ul class="nav navbar-nav navbar-right">
                 <li>
+                    <a href="{% url 'story:note'%}">
+                        <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>&nbsp; View Notes
+                    </a>
+                </li>
+                <li>
                     <a href="{% url 'story:create_note'%}">
-                        <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>&nbsp; Notes
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; Write Notes
                     </a>
                 </li>
                 <li>

@@ -10,8 +10,12 @@
                 <div class="panel-body">
                     <a href="{% url 'story:note_detail' note.id %}"></a>
                         <h4>{{ note.text }}</h4>
+                        <h4>{{ note.date_added }}</h4>
                 </div>
             </div>
         </div>
+        <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                <li class="active"><a href="{% url 'story:note' %}">View Notes</a></li>
+        </ul>
 </div>
 {% endblock %}

@@ -13,8 +13,8 @@
                 <div class="panel-body">
                     <a href="{% url 'story:detail' story.id %}"></a>
                         <h1>{{ story.title }}</h1>
-                        <h2>{{ story.artist }}</h2>
-                        <h3>{{ story.genre }}</h3>
+                        <h3>a {{ story.genre }}</h3>
+                        <h3>by {{ story.artist }}</h3>
                         <h4>{{ story.text }}</h4>
                 </div>
             </div>
@@ -25,7 +25,7 @@
         <div class="col-sm-8 col-md-9">
 
             <ul class="nav nav-pills" style="margin-bottom: 10px;">
-                <li role="presentation" class="active"><a href="{% url 'story:detail' story.id %}">View All</a></li>
+                <li role="presentation" class="active"><a href="{% url 'story:index'%}">View All</a></li>
             </ul>
             <div class="panel panel-default">
                 <div class="panel-body">
@@ -39,11 +39,12 @@
                         <tr>
                             <th>Title</th>
                             <th>Text</th>
-                        </tr> 
+                        </tr>
                         </thead>
                         <tbody>
                         {% for story in story_set.all %}
                             <tr>
+                                <td>{{ story_title }}</td>
                                 <td>
                                     <form action="{% url 'story:delete_story' story.id  %}" method="post" style="display: inline;">
                                         {% csrf_token %}

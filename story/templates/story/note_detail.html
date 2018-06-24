@@ -1,10 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'story/base.html' %}
+{% block title %}{{ note }}{% endblock %}
+{% block storys_active %}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid stories-container">
+    <div class="row">
+        <div class="col-sm-4 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="{% url 'story:note_detail' note.id %}"></a>
+                        <h4>{{ note.text }}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

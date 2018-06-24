@@ -33,8 +33,6 @@ def create_story(request):
             story.user = request.user
             story.save()
             return render(request, 'story/detail.html',  {'story': story})
-
-            #return render(request, 'story/detail.html', {'story': story})
         context = {
             "form": form,
         }
@@ -53,8 +51,19 @@ def detail(request, story_id):
         return render(request, 'registration/login.html')
     else:
         user = request.user
-        story = get_object_or_404(Story, pk=story_id),
-    return render(request, '<int story_id>/detail.html', {'story': story, 'user': user})
+        story = get_object_or_404(Story, pk=story_id)
+        ctx = {'story': story, 'user': user}
+    return render(request, 'story/detail.html', context=ctx)
+
+
+def note_detail(request, note_id):
+    if not request.user.is_authenticated:
+        return render(request, 'registration/login.html')
+    else:
+        user = request.user
+        note = get_object_or_404(Story, pk=note_id)
+        ctx = {'note': note, 'user': user}
+    return render(request, 'story/note_detail.html', context=ctx)
 
 
 def logout_user(request):
@@ -64,14 +73,6 @@ def logout_user(request):
         "form": form,
     }
     return redirect(request, 'registration/login.html', context)
-
-#def logout_user(request):
- #   logout(request)
-  #  form = UserForm(request.POST or None)
-   # context = {
-    #    "form": form,
-    #}
-    #return render(request, 'registration/login.html', context_instance=RequestContext(request))
 
 
 def login_user(request):
@@ -109,3 +110,20 @@ def register(request):
         "form": form,
     }
     return render(request, 'story/register.html', context)
+
+
+def create_note(request):
+    if not request.user.is_authenticated:
+        return render(request, 'registration/login.html')
+    else:
+        form = NoteForm(request.POST)
+        if form.is_valid():
+            note = form.save(commit=False)
+            note.user = request.user
+            note.save()
+            return render(request, 'story/note_detail.html',  {'note': note})
+        context = {
+            "form": form,
+        }
+        return render(request, 'story/create_note.html', context)
+

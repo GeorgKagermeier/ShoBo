@@ -9,14 +9,14 @@ class Story(models.Model):
     title = models.CharField(max_length=500)
     genre = models.CharField(max_length=100)
     text = models.TextField(max_length=10000)
-    is_favorite = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title + ' - ' + self.artist
 
 
 class Note(models.Model):
-    note = models.TextField()
+    text = models.TextField(max_length=1000)
     date_added = models.DateTimeField(default=django.utils.timezone.now)
+
 
 

@@ -1,7 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-
-from .models import Story
+from .models import Story, Note
 
 
 class StoryForm(forms.ModelForm):
@@ -18,6 +17,9 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ['username', 'email', 'password']
 
+
 class NoteForm(forms.ModelForm):
-        name = forms.CharField(max_length=20)
-        note = forms.CharField(widget=forms.Textarea())
+
+    class Meta:
+        model = Note
+        fields = {'text', }

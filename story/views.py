@@ -14,10 +14,25 @@ def index(request):
         query = request.GET.get("q")
         if query:
                 return render(request, 'story/index.html', {
-                    'stories': story_results,
+                    'stories': story_results
                 })
         else:
             return render(request, 'story/index.html', {'stories': stories})
+
+
+def note(request):
+    if not request.user.is_authenticated:
+        return render(request, 'registration/login.html')
+    else:
+        notes = Note.objects.filter(user=request.user)
+        note_results = Note.objects.all()
+        query = request.GET.get("q")
+        if query:
+                return render(request, 'story/note.html', {
+                    'notes': note_results
+                })
+        else:
+            return render(request, 'story/note.html', {'notes': notes})
 
 
 def create_story(request):
@@ -63,7 +78,7 @@ def delete_note(request, note_id):
     note = get_object_or_404(Note, pk=note_id)
     note.delete()
     note = Note.objects.filter(user=request.user)
-    return redirect('story:index')
+    return redirect('story:note')
 
 
 def detail(request, story_id):

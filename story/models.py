@@ -10,13 +10,16 @@ class Story(models.Model):
     genre = models.CharField(max_length=100)
     text = models.TextField(max_length=10000)
 
+    def __str__(self):
+        return self.title
+
 
 class Note(models.Model):
-    objects = None
     user = models.ForeignKey(User, default=1, on_delete=models.CASCADE, )
-    title = models.CharField(default="", max_length=500)
-    text = models.TextField(default="", max_length=1000)
+    title = models.CharField(max_length=500)
+    text = models.TextField(max_length=1000)
     date_added = models.DateTimeField(default=django.utils.timezone.now)
 
-
+    def __str__(self):
+        return self.title
 

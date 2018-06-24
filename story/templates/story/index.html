@@ -3,11 +3,13 @@
 
 
 {% block body %}
+
 <div class="storys-container container-fluid">
 
-    <!-- Storys -->
     <div class="row">
-        <div class="col-sm-12">
+
+        <!-- Stories -->
+        <div class="col-sm-12 ">
             <h3>{{ user.username }}'s stories </h3>
              <div class="col-sm-12">
                 <br>
@@ -40,5 +42,42 @@
                 {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
             {% endfor %}
     </div>
+
+     <!-- Notes -->
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>{{ user.username }}'s notes </h3>
+             <div class="col-sm-12">
+                <br>
+                <a href="{% url 'story:create_note' %}">
+                    <button type="button" class="btn btn-success">
+                        <span class="glyphicon glyphicon-plus"></span>&nbsp; Add a new Note
+                    </button>
+                </a>
+            </div>
+        </div>
+            {% for note in notes %}
+                <div class="col-sm-4 col-lg-2">
+                    <div class="caption">
+
+                            <h2>{{ note.title }}</h2>
+
+                            <!-- View Details -->
+                            <a href="{% url 'story:note_detail' note.id %}" class="btn btn-primary btn-sm" role="button">View Details</a>
+
+                            <!-- Delete Notes -->
+                            <form action="{% url 'story:delete_note' note.id %}" method="post" style="display: inline;">{% csrf_token %}
+                                <input type="hidden" name="note_id" value="{{ note.id }}" />
+                                <button type="submit" class="btn btn-default btn-sm">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </form>
+                    </div>
+                </div>
+                {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
+            {% endfor %}
+    </div>
+
 </div>
 {% endblock %}

@@ -12,7 +12,9 @@ class Story(models.Model):
 
 
 class Note(models.Model):
-    user = models.ForeignKey(User, default=1, on_delete=models.CASCADE,)
+    objects = None
+    user = models.ForeignKey(User, default=1, on_delete=models.CASCADE, )
+    title = models.CharField(default="", max_length=500)
     text = models.TextField(default="", max_length=1000)
     date_added = models.DateTimeField(default=django.utils.timezone.now)
 

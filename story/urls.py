@@ -20,8 +20,11 @@ urlpatterns = [
 
     path('story/add/', views.create_story, name='create_story'),
 
-    path('note/add/', views.create_note, name='create_note'),
+    path('story/note/add/', views.create_note, name='create_note'),
 
     path('story/<story_id>/delete/', views.delete_story, name='delete_story'),
+
+    path('story/<note_id>/delete/', views.delete_note, name='delete_note'),
+
 
 ]

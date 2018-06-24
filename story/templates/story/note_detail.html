@@ -4,8 +4,8 @@
 
 {% block body %}
 <div class="container-fluid stories-container">
-    <div class="row">
-        <div class="col-sm-4 col-md-3">
+        <!-- Note Info -->
+        <div class="col-sm-4 col-md-12">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <a href="{% url 'story:note_detail' note.id %}"></a>
@@ -13,6 +13,5 @@
                 </div>
             </div>
         </div>
-    </div>
 </div>
 {% endblock %}

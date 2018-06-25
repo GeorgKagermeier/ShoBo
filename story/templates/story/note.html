@@ -26,6 +26,12 @@
                             <!-- View Details -->
                             <a href="{% url 'story:note_detail' note.id %}" class="btn btn-primary btn-sm" role="button">View Details</a>
 
+                            <!-- Update Notes -->
+                        <form action="{% url 'story:update_note' note.id %}" method="post" style="display: inline;">{% csrf_token %}
+                                <input type="hidden" name="note_id" value="{{ note.id }}" />
+                            <button type="submit" class="btn btn-success" role="button">Update</button>
+                        </form>
+
                             <!-- Delete Notes -->
                         <form action="{% url 'story:delete_note' note.id %}" method="post" style="display: inline;">{% csrf_token %}
                                 <input type="hidden" name="note_id" value="{{ note.id }}" />

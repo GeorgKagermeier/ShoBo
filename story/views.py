@@ -81,6 +81,18 @@ def delete_note(request, note_id):
     return redirect('story:note')
 
 
+def update_note(request, note_id):
+    note = get_object_or_404(Note, pk=note_id)
+    form = NoteForm(request.POST or None, instance=note)
+
+    if form.is_valid():
+        form.save()
+        return redirect('story:note')
+
+    ctx = {'form': form, 'note': note}
+    return render(request, 'story/create_note.html', context=ctx)
+
+
 def detail(request, story_id):
     if not request.user.is_authenticated:
         return render(request, 'registration/login.html')
@@ -147,8 +159,3 @@ def register(request):
         "form": form,
     }
     return render(request, 'story/register.html', context)
-
-
-
-
-

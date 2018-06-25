@@ -24,9 +24,11 @@ urlpatterns = [
 
     path('note/add/', views.create_note, name='create_note'),
 
-    path('story/<story_id>/delete/', views.delete_story, name='delete_story'),
+    path('story/<story_id>/delete', views.delete_story, name='delete_story'),
 
-    path('note/<note_id>/delete/', views.delete_note, name='delete_note'),
+    path('note/<note_id>/delete', views.delete_note, name='delete_note'),
+
+    path('note/<note_id>/update', views.update_note, name='update_note'),
 
 
 ]

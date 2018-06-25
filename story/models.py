@@ -15,6 +15,8 @@ class Story(models.Model):
 
 
 class Note(models.Model):
+
+    objects = None
     user = models.ForeignKey(User, default=1, on_delete=models.CASCADE, )
     title = models.CharField(max_length=500)
     text = models.TextField(max_length=1000)

@@ -26,7 +26,7 @@ urlpatterns = [
 
     path('story/<story_id>/delete/', views.delete_story, name='delete_story'),
 
-    path('story/<note_id>/delete/', views.delete_note, name='delete_note'),
+    path('note/<note_id>/delete/', views.delete_note, name='delete_note'),
 
 
 ]

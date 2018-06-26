@@ -31,12 +31,10 @@
         <!--Items-->>
            <div class="collapse navbar-collapse" id="topNavBar">
             <ul class="nav navbar-nav">
-                <li class="{% block story_active %}{% endblock %}"><a href="{% url 'story:index' %}"><span class="glyphicon glyphicon-book" aria-hidden="true"></span>&nbsp; Stories</a></li>
-
+                <li>
+                    <a href="{% url 'story:display_all' %}?q=displayAll" class="btn btn-primary btn-sm" role="button">Display all stories</a>
+                </li>
             </ul>
-            <form class="navbar-form navbar-left" role="search" method="get" action="{% url 'story:index' %}">
-                 <a href="{% url 'story:display_all' %}?q=displayAll" class="btn btn-primary btn-sm" role="button">Display all stories</a>
-            </form>
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a href="{% url 'story:note'%}">
@@ -47,6 +45,10 @@
                     <a href="{% url 'story:create_note'%}">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; Write Notes
                     </a>
+                </li>
+                <li>
+                    <a href="{% url 'story:index' %}">
+                        <span class="glyphicon glyphicon-book" aria-hidden="true"></span> Stories</a>
                 </li>
                 <li>
                     <a href="{% url 'story:create_story'%}">

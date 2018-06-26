@@ -30,7 +30,7 @@ urlpatterns = [
 
     path('note/<note_id>/update', views.update_note, name='update_note'),
 
-    path('story', views.display, name='display_all')
+    path('display', views.display, name='display_all'),
 
 
 ]

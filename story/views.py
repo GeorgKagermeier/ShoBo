@@ -164,8 +164,8 @@ def display(request):
         story_results = Story.objects.all()
         query = request.GET.get("q")
         if query:
-            return render(request, 'story/index.html', {
+            return render(request, 'story/display.html', {
                 'stories': story_results
             })
         else:
-            return render(request, 'story/index.html', {'stories': stories})
+            return render(request, 'story/display.html', {'stories': stories})

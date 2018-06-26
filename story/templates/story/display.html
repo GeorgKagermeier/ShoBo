@@ -1,0 +1,24 @@
+{% extends 'story/base.html' %}
+{% block stories_active %}active{% endblock %}
+
+{% block body %}
+
+<div class="storys-container container-fluid">
+
+    <div class="row">
+
+            {% for story in stories %}
+                <div class="col-sm-4 col-lg-2">
+                    <div class="caption">
+                            <h2>{{ story.title }}</h2>
+                            <h4>{{ story.artist }}</h4>
+
+                            <!-- View Details -->
+                            <a href="{% url 'story:detail' story.id %}" class="btn btn-primary btn-sm" role="button">View Details</a>
+                        </div>
+                    </div>
+                    {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
+                {% endfor %}
+            </div>
+    </div>
+{% endblock %}

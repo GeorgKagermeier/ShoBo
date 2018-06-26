@@ -1,10 +1,12 @@
 {% extends 'story/base.html' %}
+{% block stories_active %}active{% endblock %}
 
 {% block body %}
 
 <div class="storys-container container-fluid">
 
     <div class="row">
+
      <!-- Notes -->
         <div class="col-sm-12">
             <h3>{{ user.username }}'s notes </h3>
@@ -16,10 +18,10 @@
                     </button>
                 </a>
             </div>
-            {% for note in notes %}
+        </div>
+        {% for note in notes %}
             <div class="col-sm-4 col-lg-2">
                     <div class="caption">
-
                             <h2>{{ note.title }}</h2>
                             <h4>{{ note.date_added }}</h4>
 
@@ -33,7 +35,8 @@
                         </form>
 
                             <!-- Delete Notes -->
-                        <form action="{% url 'story:delete_note' note.id %}" method="post" style="display: inline;">{% csrf_token %}
+                        <form action="{% url 'story:delete_note' note.id %}" method="post" style="display: inline;">
+                            {% csrf_token %}
                                 <input type="hidden" name="note_id" value="{{ note.id }}" />
                                 <button type="submit" class="btn btn-default btn-sm">
                                 <span class="glyphicon glyphicon-trash"></span>
@@ -44,6 +47,5 @@
                 {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
             {% endfor %}
         </div>
-    <div/>
-</div>
+    </div>
 {% endblock %}

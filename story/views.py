@@ -25,10 +25,9 @@ def note(request):
         return render(request, 'registration/login.html')
     else:
         notes = Note.objects.filter(user=request.user)
-        note_results = Note.objects.all()
         return render(request, 'story/note.html', {
-                    'notes': note_results}, {'notes': notes
-                })
+                    'notes': notes
+        })
 
 
 def create_story(request):

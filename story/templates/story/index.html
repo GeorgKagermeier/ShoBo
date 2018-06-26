@@ -1,6 +1,5 @@
 {% extends 'story/base.html' %}
-{% block storys_active %}active{% endblock %}
-
+{% block stories_active %}active{% endblock %}
 
 {% block body %}
 
@@ -9,7 +8,7 @@
     <div class="row">
 
         <!-- Stories -->
-        <div class="col-sm-12 ">
+        <div class="col-sm-12">
             <h3>{{ user.username }}'s stories </h3>
              <div class="col-sm-12">
                 <br>
@@ -30,18 +29,17 @@
                             <a href="{% url 'story:detail' story.id %}" class="btn btn-primary btn-sm" role="button">View Details</a>
 
                             <!-- Delete Story -->
-                            <form action="{% url 'story:delete_story' story.id %}" method="post" style="display: inline;">{% csrf_token %}
+                            <form action="{% url 'story:delete_story' story.id %}" method="post" style="display: inline;">
+                                {% csrf_token %}
                                 <input type="hidden" name="story_id" value="{{ story.id }}" />
                                 <button type="submit" class="btn btn-default btn-sm">
                                     <span class="glyphicon glyphicon-trash"></span>
                                 </button>
                             </form>
+                        </div>
                     </div>
-
-                </div>
-                {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
-            {% endfor %}
-        </div>
-    <div/>
-</div>
+                    {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
+                {% endfor %}
+            </div>
+    </div>
 {% endblock %}

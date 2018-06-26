@@ -35,10 +35,7 @@
 
             </ul>
             <form class="navbar-form navbar-left" role="search" method="get" action="{% url 'story:index' %}">
-                <div class="form-group">
-                    <input type="text" class="form-control" name="q" value="{{ request.GET.q }}">
-                </div>
-                <button type="submit" class="btn btn-default">Search</button>
+                 <a href="{% url 'story:display_all' %}?q=displayAll" class="btn btn-primary btn-sm" role="button">Display all stories</a>
             </form>
             <ul class="nav navbar-nav navbar-right">
                 <li>

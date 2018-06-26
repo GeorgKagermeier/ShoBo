@@ -26,13 +26,9 @@ def note(request):
     else:
         notes = Note.objects.filter(user=request.user)
         note_results = Note.objects.all()
-        query = request.GET.get("q")
-        if query:
-                return render(request, 'story/note.html', {
-                    'notes': note_results
+        return render(request, 'story/note.html', {
+                    'notes': note_results}, {'notes': notes
                 })
-        else:
-            return render(request, 'story/note.html', {'notes': notes})
 
 
 def create_story(request):
@@ -159,3 +155,18 @@ def register(request):
         "form": form,
     }
     return render(request, 'story/register.html', context)
+
+
+def display(request):
+    if not request.user.is_authenticated:
+        return render(request, 'registration/login.html')
+    else:
+        stories = Story.objects.filter(user=request.user)
+        story_results = Story.objects.all()
+        query = request.GET.get("q")
+        if query:
+            return render(request, 'story/index.html', {
+                'stories': story_results
+            })
+        else:
+            return render(request, 'story/index.html', {'stories': stories})

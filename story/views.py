@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import StoryForm, UserForm, NoteForm
 from .models import Story, Note
@@ -13,9 +14,9 @@ def index(request):
         story_results = Story.objects.all()
         query = request.GET.get("q")
         if query:
-                return render(request, 'story/index.html', {
-                    'stories': story_results
-                })
+            return render(request, 'story/index.html', {
+                'stories': story_results
+            })
         else:
             return render(request, 'story/index.html', {'stories': stories})
 
@@ -26,7 +27,7 @@ def note(request):
     else:
         notes = Note.objects.filter(user=request.user)
         return render(request, 'story/note.html', {
-                    'notes': notes
+            'notes': notes
         })
 
 
@@ -39,7 +40,7 @@ def create_story(request):
             story = form.save(commit=False)
             story.user = request.user
             story.save()
-            return render(request, 'story/detail.html',  {'story': story})
+            return render(request, 'story/detail.html', {'story': story})
         context = {
             "form": form,
         }
@@ -55,7 +56,7 @@ def create_note(request):
             note = form.save(commit=False)
             note.user = request.user
             note.save()
-            return render(request, 'story/note_detail.html',  {'note': note})
+            return render(request, 'story/note_detail.html', {'note': note})
         context = {
             "form": form,
         }

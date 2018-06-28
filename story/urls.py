@@ -1,10 +1,10 @@
+"""
+Urls module defines the urlpatterns that can be used to access the application
+"""
 from django.urls import path
 from . import views
 from django.contrib.auth.views import LoginView, LogoutView
 
-"""
-Urls module defines the urlpatterns that can be used to access the application
-"""
 
 app_name = 'story'
 

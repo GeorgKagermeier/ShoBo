@@ -1,3 +1,6 @@
+"""
+Models module containing the classes for the models
+"""
 from django.contrib.auth.models import User
 from django.db import models
 import django.utils.timezone

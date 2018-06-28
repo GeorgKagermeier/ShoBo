@@ -1,10 +1,9 @@
-from django import forms
-from django.contrib.auth.models import User
-from .models import Story, Note, Comment
-
 """
 Form module contains class definitions for forms a user may fill out later
 """
+from django import forms
+from django.contrib.auth.models import User
+from .models import Story, Note, Comment
 
 
 class StoryForm(forms.ModelForm):

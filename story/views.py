@@ -1,12 +1,11 @@
+"""
+Views module containing methods to display views for templates and models
+"""
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import StoryForm, UserForm, NoteForm, CommentForm
 from .models import Story, Note, Comment
-
-"""
-Views module containing methods to display views for templates and models
-"""
 
 
 def index(request):

@@ -4,6 +4,10 @@ import django.utils.timezone
 
 
 class Story(models.Model):
+    """
+    Stores a single story entry, related to :model:`models.Story` and
+    :model:`auth.User`.
+    """
     user = models.ForeignKey(User, default=1, on_delete=models.CASCADE,)
     artist = models.CharField(max_length=250)
     title = models.CharField(max_length=500)
@@ -15,7 +19,10 @@ class Story(models.Model):
 
 
 class Note(models.Model):
-
+    """
+    Stores a single note entry, related to :model:`models.Note` and
+    :model:`auth.User`.
+    """
     objects = None
     user = models.ForeignKey(User, default=1, on_delete=models.CASCADE, )
     title = models.CharField(max_length=500)
@@ -27,6 +34,10 @@ class Note(models.Model):
 
 
 class Comment(models.Model):
+    """
+    Stores a single comment entry, related to :model:`models.Comment`,
+    :model:`auth.User` and :model:`models.Story`.
+    """
     user = models.ForeignKey(User, default=1, on_delete=models.CASCADE, )
     story = models.ForeignKey(Story, default=1, on_delete=models.CASCADE, )
     comment = models.TextField(max_length=500)

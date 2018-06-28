@@ -2,8 +2,8 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
-from .forms import StoryForm, UserForm, NoteForm
-from .models import Story, Note
+from .forms import StoryForm, UserForm, NoteForm, CommentForm
+from .models import Story, Note, Comment
 
 
 def index(request):
@@ -63,6 +63,26 @@ def create_note(request):
         return render(request, 'story/create_note.html', context)
 
 
+def create_comment(request, story_id):
+    if not request.user.is_authenticated:
+        return render(request, 'registration/login.html')
+    else:
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = request.user
+            comment.save()
+
+            user = request.user
+            story = get_object_or_404(Story, pk=story_id)
+            ctx = {'story': story, 'user': user, 'comment': comment}
+            return render(request, 'story/detail.html', ctx)
+        context = {
+            "form": form,
+        }
+        return render(request, 'story/create_comment.html', context)
+
+
 def delete_story(request, story_id):
     story = get_object_or_404(Story, pk=story_id)
     story.delete()
@@ -95,7 +115,9 @@ def detail(request, story_id):
     else:
         user = request.user
         story = get_object_or_404(Story, pk=story_id)
-        ctx = {'story': story, 'user': user}
+        comment = Comment.objects.select_related('story').order_by('-date_commented')
+        filtered = comment.filter(story_id=story_id)
+        ctx = {'story': story, 'user': user, 'comments': filtered}
     return render(request, 'story/detail.html', context=ctx)
 
 

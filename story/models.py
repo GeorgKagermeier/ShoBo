@@ -25,3 +25,13 @@ class Note(models.Model):
     def __str__(self):
         return self.title
 
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, default=1, on_delete=models.CASCADE, )
+    story = models.ForeignKey(Story, default=1, on_delete=models.CASCADE, )
+    comment = models.TextField(max_length=500)
+    date_commented = models.DateTimeField(default=django.utils.timezone.now)
+
+    def __str__(self):
+        return self.comment
+

@@ -32,5 +32,6 @@ urlpatterns = [
 
     path('display', views.display, name='display_all'),
 
+    path('comment/<story_id>/add', views.create_comment, name='create_comment'),
 
 ]

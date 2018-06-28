@@ -1,12 +1,22 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
-from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import StoryForm, UserForm, NoteForm, CommentForm
 from .models import Story, Note, Comment
 
+"""
+Views module containing methods to display views for templates and models
+"""
+
 
 def index(request):
+    """
+        Display a landing page for user which are logged in only the stories`.
+
+        **Template:**
+
+        :template:`story/templates/story/index.html`
+    """
     if not request.user.is_authenticated:
         return render(request, 'registration/login.html')
     else:
@@ -22,6 +32,13 @@ def index(request):
 
 
 def note(request):
+    """
+           Display a landing page for user which are logged in only the notes`.
+
+           **Template:**
+
+           :template:`story/templates/story/note.html`
+       """
     if not request.user.is_authenticated:
         return render(request, 'registration/login.html')
     else:
@@ -32,6 +49,13 @@ def note(request):
 
 
 def create_story(request):
+    """
+       Display a form to create a new story for a user that is logged in
+
+       **Template:**
+
+       :template:`story/templates/story/create_story.html`
+    """
     if not request.user.is_authenticated:
         return render(request, 'registration/login.html')
     else:
@@ -48,6 +72,13 @@ def create_story(request):
 
 
 def create_note(request):
+    """
+          Display a form to create a new note for a user that is logged in
+
+          **Template:**
+
+          :template:`story/templates/story/create_note.html`
+       """
     if not request.user.is_authenticated:
         return render(request, 'registration/login.html')
     else:
@@ -64,6 +95,14 @@ def create_note(request):
 
 
 def create_comment(request, story_id):
+    """
+          Display a form to create a new comment for a story for a user that is logged in
+
+          **Template:**
+
+          :template:`story/templates/story/create_comment.html`
+       """
+
     if not request.user.is_authenticated:
         return render(request, 'registration/login.html')
     else:
@@ -84,6 +123,13 @@ def create_comment(request, story_id):
 
 
 def delete_story(request, story_id):
+    """
+               Delete a story
+
+               **Context**
+               story_id of the story that should be deleted
+
+    """
     story = get_object_or_404(Story, pk=story_id)
     story.delete()
     story = Story.objects.filter(user=request.user)
@@ -91,6 +137,13 @@ def delete_story(request, story_id):
 
 
 def delete_note(request, note_id):
+    """
+                   Delete a note
+
+                   **Context**
+                   note_id of the note that should be deleted
+
+    """
     note = get_object_or_404(Note, pk=note_id)
     note.delete()
     note = Note.objects.filter(user=request.user)
@@ -98,6 +151,16 @@ def delete_note(request, note_id):
 
 
 def update_note(request, note_id):
+    """
+           Displays a form to update a note for a logged in user.
+
+           **Context**
+           note_id of the note that should be updated
+
+           **Template:**
+
+           :template:`story/templates/story/update_note.html`
+    """
     note = get_object_or_404(Note, pk=note_id)
     form = NoteForm(request.POST or None, instance=note)
 
@@ -110,6 +173,16 @@ def update_note(request, note_id):
 
 
 def detail(request, story_id):
+    """
+              Displays the detail page of a story for a logged in user.
+
+              **Context**
+              story_id of the story that should be displayed
+
+              **Template:**
+
+              :template:`story/templates/story/detail.html`
+    """
     if not request.user.is_authenticated:
         return render(request, 'registration/login.html')
     else:
@@ -122,6 +195,17 @@ def detail(request, story_id):
 
 
 def note_detail(request, note_id):
+    """
+                Displays the detail page of a note for a logged in user.
+
+                **Context**
+                note_id of the note that should be displayed
+
+                **Template:**
+
+                :template:`story/templates/story/note_detail.html`
+      """
+
     if not request.user.is_authenticated:
         return render(request, 'registration/login.html')
     else:
@@ -132,6 +216,10 @@ def note_detail(request, note_id):
 
 
 def logout_user(request):
+    """
+                    Logout function
+
+          """
     logout(request)
     form = UserForm(request.POST or None)
     context = {
@@ -141,6 +229,14 @@ def logout_user(request):
 
 
 def login_user(request):
+    """
+                Displays the login page of a user to get logged in.
+
+
+                **Template:**
+
+                :template:`story/templates/registration/login.html`
+      """
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
@@ -159,6 +255,14 @@ def login_user(request):
 
 
 def register(request):
+    """
+                   Displays the register page of a new user to get registered.
+
+
+                   **Template:**
+
+                   :template:`story/templates/story/register.html`
+         """
     form = UserForm(request.POST or None)
     if form.is_valid():
         user = form.save(commit=False)
@@ -180,6 +284,14 @@ def register(request):
 
 
 def display(request):
+    """
+                    Display all stories by all users written. Only registered users can view the stories
+
+
+                    **Template:**
+
+                    :template:`story/templates/story/display.html`
+          """
     if not request.user.is_authenticated:
         return render(request, 'registration/login.html')
     else:

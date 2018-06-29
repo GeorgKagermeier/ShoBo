@@ -63,7 +63,7 @@ def create_story(request):
             story = form.save(commit=False)
             story.user = request.user
             story.save()
-            return render(request, 'story/detail.html', {'story': story})
+            return redirect('story:index')
         context = {
             "form": form,
         }
@@ -77,7 +77,7 @@ def create_note(request):
           **Template:**
 
           :template:`story/templates/story/create_note.html`
-       """
+    """
     if not request.user.is_authenticated:
         return render(request, 'registration/login.html')
     else:
@@ -100,19 +100,20 @@ def create_comment(request, story_id):
           **Template:**
 
           :template:`story/templates/story/create_comment.html`
-       """
+    """
 
     if not request.user.is_authenticated:
         return render(request, 'registration/login.html')
     else:
         form = CommentForm(request.POST)
         if form.is_valid():
-            comment = form.save(commit=False)
-            comment.user = request.user
-            comment.save()
-
             user = request.user
             story = get_object_or_404(Story, pk=story_id)
+
+            comment = form.save(commit=False)
+            comment.user = user
+            comment.story = story
+            comment.save()
             ctx = {'story': story, 'user': user, 'comment': comment}
             return render(request, 'story/detail.html', ctx)
         context = {
@@ -190,6 +191,7 @@ def detail(request, story_id):
         comment = Comment.objects.select_related('story').order_by('-date_commented')
         filtered = comment.filter(story_id=story_id)
         ctx = {'story': story, 'user': user, 'comments': filtered}
+        print(ctx)
     return render(request, 'story/detail.html', context=ctx)
 
 

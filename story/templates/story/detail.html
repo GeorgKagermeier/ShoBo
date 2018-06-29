@@ -24,7 +24,7 @@
             {% for comment in comments %}
             <div class="col-sm-4 col-lg-2">
                 <div class="caption">
-                    <h3>{{ user.username}}</h3>
+                    <h3>{{ comment.user.username}}</h3>
                     <h4>{{ comment.comment }}</h4>
                     <h5>{{ comment.date_commented }}</h5>
                 </div>

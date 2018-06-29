@@ -30,8 +30,8 @@
                     Details</a>
 
                 <!-- Update Notes -->
-                <form action="{% url 'story:update_note' note.id %}" method="post" style="display: inline;">{%
-                    csrf_token %}
+                <form action="{% url 'story:update_note' note.id %}" method="post" style="display: inline;">
+                    {% csrf_token %}
                     <input type="hidden" name="note_id" value="{{ note.id }}"/>
                     <button type="submit" class="btn btn-success" role="button">Update</button>
                 </form>
@@ -45,11 +45,9 @@
                     </button>
                 </form>
             </div>
-        </div>
-        {% cycle '' '' '' '' '' '
-        <div class="clearfix visible-lg"></div>
-        ' %}
-        {% endfor %}
+          </div>
+         {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
+     {% endfor %}
     </div>
 </div>
 {% endblock %}
